@@ -46,7 +46,31 @@ const MailBox = () => {
         setIsSuccessful(false)
       alert(error.message);
     }
+
+    const obj2 = {
+        from: email,
+        body: body,
+        read: false,
+      };
+
+    
+    try {
+       
+        let res = await axios.post(
+          `https://mail-box-fdd3d-default-rtdb.firebaseio.com/${toMail}/inbox.json`,
+          obj2
+        );
+        // dispatch(mailAction.sent({}));
+        
+    
+      } catch (error) {
+     
+        console.log("error:", error);
+      }
+    
   };
+
+  
 
 
   return (
