@@ -7,9 +7,12 @@ import {
   FormGroup,
   FormLabel,
 } from "react-bootstrap";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Authactions } from "../../store/AuthSlice";
 const LoginForm = () => {
-
+    const dispatch = useDispatch();
   const [successful,setIsSuccessful]=useState(false)
   const emailRef = useRef();
   const passRef = useRef();
@@ -19,35 +22,33 @@ const LoginForm = () => {
 
     const email = emailRef.current.value;
     const password = passRef.current.value;
-
-    let res = await fetch(
+   try{
+    let res = await axios.post(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD-Ed8ahcg8baXPHndhsUaiXy2lR0tY0AM",
-      {
-        method: "POST",
-        body: JSON.stringify({
+      
+        {
           email: email,
           password: password,
           returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
         },
-      }
+        
     );
-    let data;
-    if (res.ok) {
+   
       setIsSuccessful(true)
-      localStorage.setItem("token", JSON.stringify(res.idToken));
-
+      
+      dispatch(Authactions.login({token:res.data.idToken,email:res.data.email}))
+     
       setTimeout(()=>{
           navigate('/empty')
       },2000)
-      return res.json();
-    } else {
+     
+
+    
+    } catch(error) {
 
        setIsSuccessful(false)
-      data = await res.json();
-      alert(data.error.message);
+      
+      alert(error.message);
     }
   };
   return (
