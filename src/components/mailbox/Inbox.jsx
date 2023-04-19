@@ -29,17 +29,17 @@ const Inbox = () => {
     }
   };
 
-//   const handleDelete = async (id) => {
-//     dispatch(mailAction.delete(id));
-//     try {
-//       let res = await axios.delete(
-//         `https://mail-box-fdd3d-default-rtdb.firebaseio.com/${newEmail}/inbox/${id}.json`
-//       );
-//       console.log(res);
-//     } catch (error) {
-//       console.log("error:", error);
-//     }
-//   };
+  const handleDelete = async (id) => {
+    dispatch(mailAction.delete(id));
+    try {
+      let res = await axios.delete(
+        `https://mail-box-fdd3d-default-rtdb.firebaseio.com/${newEmail}/inbox/${id}.json`
+      );
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
 
   useEffect(() => {
     getMailData();
@@ -70,7 +70,7 @@ const Inbox = () => {
               <AiFillDelete
                 color="red"
                 className="delete"
-                // onClick={() => handleDelete(items)}
+                onClick={() => handleDelete(items)}
               />
               <h4 style={{ display: "flex", gap: "10px" }}>
                 <p>{!inbox[items].read && <>💎</>}</p>

@@ -20,6 +20,23 @@ const Sent = () => {
         }
     }
 
+
+    const handleDelete = async (id) => {
+        try {
+         
+          let res = await axios.delete(
+            `https://mail-box-fdd3d-default-rtdb.firebaseio.com/${newEmail}/sent/${id}.json`
+          );
+         
+         
+          sentData();
+          
+        } catch (error) {
+          
+          console.log("error:", error);
+        }
+      };
+
     useEffect(()=>{
         sentData()
     },[])
@@ -41,7 +58,7 @@ const Sent = () => {
           <AiFillDelete
             color="red"
             className="delete"
-            // onClick={() => handleDelete(sentMails.id)}
+            onClick={() => handleDelete(sentMails.id)}
           />
           <p>To : {sentMails.to}</p>
           <div style={{ display: "flex", gap: "10px" }}>
