@@ -5,6 +5,8 @@ import { Routes,Route } from "react-router-dom";
 import MailBox from "./components/mailbox/MailBox";
 import Sent from "./components/mailbox/Sent";
 import SingleSent from "./components/mailbox/SingleSent";
+import Inbox from "./components/mailbox/Inbox";
+import SingleEmail from "./components/mailbox/SingleEmail";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
       <Route path="/mailbox" element={<MailBox/>}> </Route>
       <Route path="/sent" element={<Sent/>}> </Route>
       <Route path="/sent/:id" element={<SingleSent/>}> </Route>
+      <Route path="/inbox" element={<Inbox/>}> </Route>
+      <Route path="/inbox/:id" element={<SingleEmail/>}> </Route>
      </Routes>
      
     </div>
